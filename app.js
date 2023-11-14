@@ -1,7 +1,7 @@
 const express = require('express');
 const { createAndConnectToDatabase } = require('./helpers/pool');
 const chalk = require('chalk');
-const cors = require('cors');
+const cors = require('cors'); 
 const routes = require('./routes'); 
 require('dotenv').config();
 
