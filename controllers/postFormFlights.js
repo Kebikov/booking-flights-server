@@ -14,12 +14,27 @@ const postFormFlights = async (req, res) => {
     try {
         const {field, value} = req.body;
 
+        console.log(field, value);
         promisePool =  await pool();
-        const [rows] = await promisePool.query(`SELECT * FROM flights WHERE ${field} = ${value}`);
-        if(Array.isArray(rows) && rows.length > 0) {
-            
+
+        let rows;
+
+        switch(field) {
+            case 'route':
+                [rows] = await promisePool.query(`SELECT * FROM flights WHERE ${field} = '${value}'`);
+                if(rows.length > 0) return res.status(200).send({msg: false});
+                return res.status(200).send({msg: true});
+            case 'date': 
+                [rows] = await promisePool.query(`SELECT * FROM flights WHERE ${field} = '${value}'`);
+                console.log(rows);
+                if(rows.length < 2) {
+                    return res.status(200).send({msg: true});
+                } else {
+                    return res.status(200).send({msg: false});
+                }
+            default:
+                return res.status(200).send({msg: 'route not found'});
         }
-        return res.status(200).send(rows);
 
     } catch (error) {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});

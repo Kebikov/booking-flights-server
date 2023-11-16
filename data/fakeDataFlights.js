@@ -23,7 +23,7 @@ const fakeDataFlights = [
     {
         route: 'DF-678',
         city: 'Париж',
-        date: '2023-12-12T13:00:00',
+        date: '2023-12-12T09:00:00',
         company: 'Аэрофлот',
         checkIn: '2023-12-12T12:30:00',
         freePlace: 20,

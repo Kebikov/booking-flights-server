@@ -8,7 +8,7 @@ const getFlightsData = require('../controllers/getFlightsData');
 const postFormFlights = require('../controllers/postFormFlights');
 
 //= GET 
-router.get('/booking-data', getBookingData);
+router.get('/booking-data', getBookingData); 
 router.get('/flights-data', getFlightsData);
 //= POST 
 router.post('/check-form-flights', postFormFlights);
