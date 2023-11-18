@@ -30,7 +30,7 @@ const ifDatabaseNotExists = async () => {
         // создание: две таблицы(booking и flights)
         await promisePool.query(createTableBooking);
         await promisePool.query(createTableFlights);
-
+        console.log(transformData(fakeDataFlights));
         // наполняем данными таблицу booking, преобразуя обьект в строку с помошью transformData
         await promisePool.query(`
             INSERT INTO booking 
@@ -41,7 +41,7 @@ const ifDatabaseNotExists = async () => {
         // наполняем данными таблицу flights, преобразуя обьект в строку с помошью transformData
         await promisePool.query(`
             INSERT INTO flights 
-            (route, city, date, company, checkIn, freePlace, note) 
+            (route, city, date, company, checkIn, freePlace, note)  
             VALUES ${transformData(fakeDataFlights)}` 
         );
 

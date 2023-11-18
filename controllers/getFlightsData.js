@@ -2,19 +2,17 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 
 /**
-* @typedef {Object} FlightsData
-* @property {string} route - id рейса
-* @property {string} city - город назначения
-* @property {string} date - дата и время вылета
-* @property {string} company - комания перевозчик
-* @property {string} checkIn - крайний срок регистрации на рейс
-* @property {number} freePlace - количество свободных мест в самолете
-* @property {string} note - примечание
-*/
-
-/**
 * Функция получения всех данных рейсов
-* @returns {Promise<FlightsData[]>} вернет массив с обьектами рейсов
+* @typedef {Object} FormFlights
+* @property {string} route - уникальный номер рейса
+* @property {string} city - город назначения
+* @property {string} date - дата вылета
+* @property {string} company - перевозчик
+* @property {string} checkIn - дата регистрации
+* @property {number} freePlace - количество свободных мест
+* @property {string} note - примечание
+*
+* @returns {FormFlights[]} вернет массив с обьектами рейсов
 */
 const getFlightsData = async (req, res) => {
     let promisePool;

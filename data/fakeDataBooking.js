@@ -1,4 +1,4 @@
-//@ts-check
+//№@ts-check
 
 /**
  * Массив обьектов для создания брони
@@ -12,9 +12,10 @@
  *      note: string 
  * }[]}
  */
+
 const fakeDataBooking = [
     { 
-        route: 'DF-345/1', 
+        route: 'DF-345/№1', 
         surname: 'Иванов', 
         name: 'Иван', 
         middleName: 'Иванович', 
@@ -23,7 +24,7 @@ const fakeDataBooking = [
         note: 'Note for object 1' 
     },
     { 
-        route: 'DF-345/2', 
+        route: 'DF-345/№2', 
         surname: 'Петров', 
         name: 'Петр', 
         middleName: 'Петрович', 
@@ -32,7 +33,7 @@ const fakeDataBooking = [
         note: 'Note for object 2' 
     },
     { 
-        route: 'DF-345/3', 
+        route: 'DF-345/№3',  
         surname: 'Сидоров', 
         name: 'Сидор',
         middleName: 'Сидорович', 
@@ -41,7 +42,7 @@ const fakeDataBooking = [
         note: 'Note for object 3' 
     },
     { 
-        route: 'DF-678/1', 
+        route: 'DF-678/№1', 
         surname: 'Козлов', 
         name: 'Козел', 
         middleName: 'Козлович', 
@@ -50,7 +51,7 @@ const fakeDataBooking = [
         note: 'Note for object 4' 
     },
     { 
-        route: 'DF-678/2', 
+        route: 'DF-678/№2', 
         surname: 'Смирнов', 
         name: 'Смирн', 
         middleName: 'Смирнович', 
@@ -59,7 +60,7 @@ const fakeDataBooking = [
         note: 'Note for object 5' 
     },
     { 
-        route: 'DF-350/1', 
+        route: 'DF-350/№1', 
         surname: 'Иванова', 
         name: 'Иванна', 
         middleName: 'Ивановна', 
@@ -68,7 +69,7 @@ const fakeDataBooking = [
         note: 'Note for object 6' 
     },
     { 
-        route: 'DF-350/2', 
+        route: 'DF-350/№2', 
         surname: 'Петрова', 
         name: 'Петра', 
         middleName: 'Петровна', 
@@ -77,7 +78,7 @@ const fakeDataBooking = [
         note: 'Note for object 7' 
     },
     { 
-        route: 'DF-910/1', 
+        route: 'DF-910/№1', 
         surname: 'Сидорова', 
         name: 'Сидора', 
         middleName: 'Сидоровна', 
@@ -86,7 +87,7 @@ const fakeDataBooking = [
         note: 'Note for object 8' 
     },
     { 
-        route: 'DF-910/2', 
+        route: 'DF-910/№2', 
         surname: 'Козлова', 
         name: 'Козла', 
         middleName: 'Козловна', 
@@ -95,7 +96,7 @@ const fakeDataBooking = [
         note: 'Note for object 9' 
     },
     { 
-        route: 'DF-910/3', 
+        route: 'DF-910/№3', 
         surname: 'Смирнова', 
         name: 'Смирна', 
         middleName: 'Смирновна', 
@@ -104,7 +105,7 @@ const fakeDataBooking = [
         note: 'Note for object 10' 
     },
     { 
-        route: 'DFQ-392/1', 
+        route: 'DFQ-392/№1', 
         surname: 'Иванович', 
         name: 'Иванка', 
         middleName: 'Ивановна', 
@@ -113,7 +114,7 @@ const fakeDataBooking = [
         note: 'Note for object 11' 
     },
     { 
-        route: 'DFX-670/1', 
+        route: 'DFX-670/№1', 
         surname: 'Петрович', 
         name: 'Петровна', 
         middleName: 'Петровна', 
@@ -122,7 +123,7 @@ const fakeDataBooking = [
         note: 'Note for object 12' 
     },
     { 
-        route: 'DFX-670/2', 
+        route: 'DFX-670/№2', 
         surname: 'Сидорович', 
         name: 'Сидорка', 
         middleName: 'Сидоровна', 
@@ -131,7 +132,7 @@ const fakeDataBooking = [
         note: 'Note for object 13' 
     },
     { 
-        route: 'DFX-670/3', 
+        route: 'DFX-670/№3', 
         surname: 'Козлович', 
         name: 'Козлона', 
         middleName: 'Козловна', 
@@ -140,7 +141,7 @@ const fakeDataBooking = [
         note: 'Note for object 14' 
     },
     { 
-        route: 'DF-111/1', 
+        route: 'DF-111/№1', 
         surname: 'Смирнович', 
         name: 'Смирночка',
         middleName: 'Смирновна', 
@@ -149,7 +150,7 @@ const fakeDataBooking = [
         note: 'Note for object 15' 
     },
     { 
-        route: 'DF-111/2', 
+        route: 'DF-111/№2', 
         surname: 'Иванков',
         name: 'Иванко', 
         middleName: 'Иванович', 
@@ -158,7 +159,7 @@ const fakeDataBooking = [
         note: 'Note for object 16' 
     },
     { 
-        route: 'DF-111/3', 
+        route: 'DF-111/№3', 
         surname: 'Петровков', 
         name: 'Петро', 
         middleName: 'Петрович', 
@@ -167,7 +168,7 @@ const fakeDataBooking = [
         note: 'Note for object 17' 
     },
     { 
-        route: 'DF-111/4', 
+        route: 'DF-111/№4', 
         surname: 'Сидорков', 
         name: 'Сидорко', 
         middleName: 'Сидорович', 

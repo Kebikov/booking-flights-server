@@ -1,46 +1,42 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 /**
- * Функция проверки формы добавления рейсов
- * @typedef {Object} ReqFlights
- * @property {string} field - id поля которое проверяем
- * @property {string} value - значение для проверки
- * @param {ReqFlights} req.boby - обьект проверки
- * @return {boolean} - вернет результат проверки поля true/false 
- */
+* Функция добавления новых рейсов
+* @typedef {Object} FormFlights
+* @property {string} route - уникальный номер рейса
+* @property {string} city - город назначения
+* @property {string} date - дата вылета
+* @property {string} company - перевозчик
+* @property {string} checkIn - дата регистрации
+* @property {number} freePlace - количество свободных мест
+* @property {string} note - примечание
+*
+* @param {FormFlights} req.boby - обьект с данными
+* @param {Object} req - обьект запроса Express
+* @return {FormFlights[]} - вернет обновленный массив с данными
+*/
 
 const postFormFlights = async (req, res) => {
     let promisePool;
-    try {
-        const {field, value} = req.body;
+    try { 
+        const {route, city, date, company, checkIn, freePlace, note} = req.body;
 
-        console.log(field, value);
-        promisePool =  await pool();
+        promisePool =  await pool(); 
 
-        let rows;
+        await promisePool.query(`
+            INSERT INTO flights 
+            (route, city, date, company, checkIn, freePlace, note) 
+            VALUES
+            ("${route}", "${city}", "${date}", "${company}", "${checkIn}", ${freePlace}, "${note}")`
+        );
 
-        switch(field) {
-            case 'route':
-                [rows] = await promisePool.query(`SELECT * FROM flights WHERE ${field} = '${value}'`);
-                if(rows.length > 0) return res.status(200).send({msg: false});
-                return res.status(200).send({msg: true});
-            case 'date': 
-                [rows] = await promisePool.query(`SELECT * FROM flights WHERE ${field} = '${value}'`);
-                console.log(rows);
-                if(rows.length < 2) {
-                    return res.status(200).send({msg: true});
-                } else {
-                    return res.status(200).send({msg: false});
-                }
-            default:
-                return res.status(200).send({msg: 'route not found'});
-        }
+        const [rows] = await promisePool.query('SELECT * FROM flights');
+        return res.status(200).send(rows);
 
     } catch (error) {
-        res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});
-
+        res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`}); 
     } finally {
-        if(promisePool) await promisePool.end();
+        if(promisePool) await promisePool.end(); 
     }
 };
 
