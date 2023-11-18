@@ -15,7 +15,7 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 * @param {Object} req - обьект запроса Express
 * @return {FormFlights[]} - вернет обновленный массив с данными
 */
-
+//= postFormFlights 
 const postFormFlights = async (req, res) => {
     let promisePool;
     try { 

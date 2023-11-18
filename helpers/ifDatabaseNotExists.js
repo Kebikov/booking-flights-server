@@ -12,6 +12,7 @@ const fakeDataFlights = require('../data/fakeDataFlights');
  * - неполняет начальными данными таблицы
  * @returns {void}
  */
+//= ifDatabaseNotExists 
 const ifDatabaseNotExists = async () => {
     try {
         const pool = mysql.createPool({

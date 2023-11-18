@@ -8,7 +8,7 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
  * @param {ReqFlights} req.boby - обьект проверки
  * @return {boolean} - вернет результат проверки поля true/false 
  */
-
+//= postCheckFormFlights 
 const postCheckFormFlights = async (req, res) => {
     let promisePool;
     try {
@@ -16,7 +16,7 @@ const postCheckFormFlights = async (req, res) => {
 
         console.log(field, value);
         promisePool =  await pool();
-        console.log(promisePool);
+
         let rows;
 
         switch(field) {
