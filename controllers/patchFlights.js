@@ -16,7 +16,7 @@ const patchFlights = async (req, res) => {
     let promisePool;
     try { 
         const {id, date, checkIn} = req.body;
-
+        console.log(id, date, checkIn); 
         promisePool =  await pool(); 
 
         await promisePool.query(`

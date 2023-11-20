@@ -29,10 +29,18 @@ async function createAndConnectToDatabase() {
             host: process.env.MYSQL_HOST,
             user: process.env.MYSQL_USER,
             database: process.env.MYSQL_DB,
-            password: process.env.MYSQL_PASSWORD
+            password: process.env.MYSQL_PASSWORD,
+            typeCast: function(field, next) { // Отключите преобразование даты
+                if (field.type === 'DATETIME') {
+                    return field.string();
+                }
+                    return next();
+                }
         });
 
         const promisePool = pool.promise(); 
+
+        
 
         return promisePool;
         

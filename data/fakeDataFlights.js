@@ -14,9 +14,9 @@ const fakeDataFlights = [
     {
         route: 'DF-345',
         city: 'Минск',
-        date: '2023-12-12T09:00:00',
+        date: '2023-12-12T09:00:00', 
         company: 'Белавиа',
-        checkIn: '2023-12-12T08:30:00',
+        checkIn: '2023-12-12T08:30:00', 
         freePlace: 23,
         note: 'some note'
     },

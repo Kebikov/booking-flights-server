@@ -1,8 +1,7 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 
-/**
-* Функция получения всех данных рейсов
+/** Функция получения всех данных рейсов
 * @typedef {Object} FormFlights
 * @property {string} route - уникальный номер рейса
 * @property {string} city - город назначения
@@ -15,6 +14,7 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 * @returns {FormFlights[]} вернет массив с обьектами рейсов
 */
 const getFlightsData = async (req, res) => {
+    
     let promisePool;
 
     try {

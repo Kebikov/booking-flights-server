@@ -22,7 +22,7 @@ const createTableBooking = `
  */
 const createTableFlights = `
     CREATE TABLE IF NOT EXISTS flights (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id INT AUTO_INCREMENT PRIMARY KEY, 
         route VARCHAR(16), 
         city VARCHAR(32), 
         date DATETIME, 

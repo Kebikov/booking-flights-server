@@ -5,7 +5,7 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 
 //= router.get('/curent-time')
-router.get('/curent-time', async (req, res) => {
+router.get('/curent-time', async (req, res) => { 
     try {
         const date = new Date();
         const dataTime = new Date(date).getTime();
