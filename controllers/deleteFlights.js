@@ -35,7 +35,10 @@ const deleteFlights = async (req, res) => {
             // проверка есть ли забронированые билеты на рейс, если да то не удаляем
             if(Array.isArray(rows) && rows.length === 0) {
                 //удаляем
-                [rows] = await promisePool.query(`DELETE FROM flights WHERE id = ${id}`);
+                [rows] = await promisePool.query(`
+                    DELETE FROM flights 
+                    WHERE id = ${id}
+                `);
                 return res.status(200).send({msg: 'Рейс удален.'});
             } else {
                 return res.status(200).send({msg: 'Есть забронированные билеты.'});

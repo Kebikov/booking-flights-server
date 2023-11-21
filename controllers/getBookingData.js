@@ -1,20 +1,22 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
-/**
-* @typedef {Object} BookingData
-* @property {string} route - id рейса
-* @property {string} surname - фамилия пасажира
-* @property {string} name - имя пасажира
-* @property {string} middleName - отчество пасажира
-* @property {string} date - фамилия пасажира
-* @property {number} sit - номер места пасажира
-* @property {string} note - примечание
-*/
 
 /**
-* Функция получения всех данных бранирования
-* @returns {Promise<BookingData[]>} вернет массив с обьектами брони
-*/
+ * @typedef {Object} BookingData
+ * @property {number} id - Id записи.
+ * @property {string} route - Уникальное имя рейса.
+ * @property {string} surname - Фамилия пасажира.
+ * @property {string} name - Имя пасажира.
+ * @property {string} middleName - Отчество пасажира.
+ * @property {string} date - Время регистрации.
+ * @property {number} sit - Номер места пасажира.
+ * @property {string} note - Примечание.
+ */
+
+/**
+ * Функция получения всех данных бранирования
+ * @returns {Promise<BookingData[]>} вернет массив с обьектами брони
+ */
 const getBookingData = async (req, res) => {
     let promisePool;
 

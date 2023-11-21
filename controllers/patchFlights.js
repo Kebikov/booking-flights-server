@@ -1,15 +1,17 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 /**
-* Функция редактирования рейсов
-* @typedef {Object} FormFlights
-* @property {number} id - уникальный id рейса
-* @property {string} date - дата вылета
-* @property {string} checkIn - дата регистрации
-*
-* @param {FormFlights} req.boby - обьект с данными
-* @param {Object} req - обьект запроса Express
-* @return {Object} - вернет обьект с результатом {msg: 'someResalt'}
+ * @typedef {Object} FormFlights
+ * @property {number} id - уникальный id рейса
+ * @property {string} date - дата вылета
+ * @property {string} checkIn - дата регистрации
+ */ 
+
+/** 
+ * Функция редактирования рейсов
+ * @param {FormFlights} req.boby - обьект с данными
+ * @param {Object} req - обьект запроса Express
+ * @return {Object} - вернет обьект с результатом {msg: 'someResalt'}
 */
 //= patchFlights 
 const patchFlights = async (req, res) => {

@@ -1,12 +1,14 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 /**
- * Функция проверки формы добавления рейсов
+ * Проверка формы добавления рейсов.
  * @typedef {Object} ReqFlights
- * @property {string} field - id поля которое проверяем
- * @property {string} value - значение для проверки
- * @param {ReqFlights} req.boby - обьект проверки
- * @return {boolean} - вернет результат проверки поля true/false 
+ * @property {string} field - Id поля которое проверяем.
+ * @property {string} value - Значение для проверки.
+ * 
+ * @param {Object} req - Обьект запроса Express.
+ * @param {ReqFlights} req.boby - Обьект с данными.
+ * @return {boolean} - Вернет результат проверки поля true/false.
  */
 //= postCheckFormFlights 
 const postCheckFormFlights = async (req, res) => {
@@ -22,8 +24,8 @@ const postCheckFormFlights = async (req, res) => {
         switch(field) {
             case 'route':
                 [rows] = await promisePool.query(`SELECT * FROM flights WHERE ${field} = '${value}'`);
-                if(rows.length > 0) return res.status(200).send({msg: false});
-                return res.status(200).send({msg: true});
+                if(rows.length > 0) return res.status(200).send({msg: false}); // рейс такой есть
+                return res.status(200).send({msg: true}); // такого рейса нет
             case 'date': 
                 [rows] = await promisePool.query(`SELECT * FROM flights WHERE ${field} = '${value}'`);
                 if(rows.length < 2) {
@@ -39,7 +41,7 @@ const postCheckFormFlights = async (req, res) => {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});
 
     } finally {
-        //if(promisePool) await promisePool.end();
+        if(promisePool) await promisePool.end();
     }
 };
 
