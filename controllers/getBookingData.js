@@ -19,11 +19,40 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
  */
 const getBookingData = async (req, res) => {
     let promisePool;
-
     try {
+        /**
+         * @type {number} total
+         * - Установленое количество отображаемых записей.
+         */
+        const total = Number(req.query.total);
+        /**
+         * @type {number} page
+         * - Номер текушей просматриваемой страницы.
+         */
+        const page = Number(req.query.page);
+        console.log('total=', total);
+        console.log('page=', page);
+
         promisePool =  await pool();
-        const [rows] = await promisePool.query('SELECT * FROM booking');
-        return res.status(200).send(rows);
+        let rows;
+        if(page === 1) {
+            console.log(1);
+            [rows] = await promisePool.query( `SELECT * FROM booking LIMIT ${total}` );
+        } else {
+            console.log(2);
+            [rows] = await promisePool.query( `SELECT * FROM booking LIMIT ${total} OFFSET ${total * (page - 1)}` );
+        }
+
+
+        let arrayBookingData = await promisePool.query('SELECT COUNT(*) FROM booking');
+        /**
+         * @type {number} totalLineInTableBooking
+         * - Количество записей в таблице booking.
+         */
+        let totalLineInTableBooking = arrayBookingData[0][0]['COUNT(*)'];
+        let totalPagesBooking = Math.ceil( totalLineInTableBooking / total);
+
+        return res.status(200).send({rows, totalPagesBooking});
 
     } catch (error) {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});

@@ -10,7 +10,7 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
  * Функция удаления брони по переданному id и добавления места на рейс
  * @param {number} req.body - обьект c данными
  * @param {Object} req - обьект запроса Express
- * @return {void} ??? 
+ * @return {string} Строку с результатом. 
  */
 //= deleteBooking 
 const deleteBooking = async (req, res) => {
