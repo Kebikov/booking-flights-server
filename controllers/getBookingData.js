@@ -14,9 +14,15 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
  */
 
 /**
- * Функция получения всех данных бранирования
- * @returns {Promise<BookingData[]>} вернет массив с обьектами брони
+ * @typedef {Object} GetBookingData
+ * @property {BookingData[]} - Массив обьектов с данными брони.
+ * @property {number} - Число страниц для отображения.
  */
+
+/**
+ * @returns {GetBookingData} - Вернет обьект с : массивом обьектов брони, число страниц для отображения.
+ */
+
 const getBookingData = async (req, res) => {
     let promisePool;
     try {
@@ -30,30 +36,26 @@ const getBookingData = async (req, res) => {
          * - Номер текушей просматриваемой страницы.
          */
         const page = Number(req.query.page);
-        console.log('total=', total);
-        console.log('page=', page);
 
         promisePool =  await pool();
         let rows;
         if(page === 1) {
-            console.log(1);
             [rows] = await promisePool.query( `SELECT * FROM booking LIMIT ${total}` );
         } else {
-            console.log(2);
             [rows] = await promisePool.query( `SELECT * FROM booking LIMIT ${total} OFFSET ${total * (page - 1)}` );
         }
 
+        const dataBooking = rows;
 
-        let arrayBookingData = await promisePool.query('SELECT COUNT(*) FROM booking');
+        [rows] = await promisePool.query('SELECT COUNT(*) FROM booking');
         /**
          * @type {number} totalLineInTableBooking
          * - Количество записей в таблице booking.
          */
-        let totalLineInTableBooking = arrayBookingData[0][0]['COUNT(*)'];
+        let totalLineInTableBooking = rows[0]['COUNT(*)'];
         let totalPagesBooking = Math.ceil( totalLineInTableBooking / total);
 
-        return res.status(200).send({rows, totalPagesBooking});
-
+        return res.status(200).send({dataBooking, totalPagesBooking});
     } catch (error) {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});
 
