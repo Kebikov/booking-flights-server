@@ -35,7 +35,7 @@ const deleteBooking = async (req, res) => {
             WHERE id = ${id}
         `);
 
-        return res.status(200).send({msg: 'BOOKING_DELETED'});
+        return res.status(200).send({msg: 'ENTRY_DELETED'});
     } catch (error) {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`}); 
     } finally {

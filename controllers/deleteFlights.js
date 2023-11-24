@@ -39,7 +39,7 @@ const deleteFlights = async (req, res) => {
                     DELETE FROM flights 
                     WHERE id = ${id}
                 `);
-                return res.status(200).send({msg: 'Рейс удален.'});
+                return res.status(200).send({msg: 'ENTRY_DELETED'});
             } else {
                 return res.status(200).send({msg: 'Есть забронированные билеты.'});
             }
