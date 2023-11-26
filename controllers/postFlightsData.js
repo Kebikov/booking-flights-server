@@ -20,6 +20,15 @@ const queryGenerationFlights = require('../helpers/queryGenerationFlights');
  */
 //= postFlightsData 
 const postFlightsData = async (req, res) => {  
+
+    //* Определение количества страниц с учетом заданного количества отображаемых страниц.
+    const setTotalPages = (dataArray, total) => {
+        if(Array.isArray(dataArray) && dataArray.length > 0) {
+            return Math.ceil( dataArray[0].totalRows / total);
+        } else {
+            return 0;
+        }
+    }
     
     let promisePool; 
     let rows;
@@ -32,7 +41,7 @@ const postFlightsData = async (req, res) => {
      * Количество страниц в таблице booking, с учетом заданного количества отображаемых страниц.
      * @type {number}
      */
-    let totalPagesBooking;
+    let totalPages;
 
     try {
         promisePool =  await pool();
@@ -57,50 +66,28 @@ const postFlightsData = async (req, res) => {
         if(!isValue) {
             //* Если установлены варианты фильтрации.
             let query = queryGenerationFlights(filterDataFlights, 'flights');
-            console.log(query);
-            // Изминение команды запроса для определения обшего количества отображаемых данных
-            const queryCount = query.replace('SELECT *', 'SELECT COUNT(*)');
-            //* Определение количества страниц с учетом заданного количества отображаемых страниц.
-            [rows] = await promisePool.query(queryCount);
-            totalPagesBooking = Math.ceil( rows[0]['COUNT(*)'] / total);
             // Добавление команд для погинации данных.
             if(page === 1) {
                 query += ` LIMIT ${total}`;
             } else {
-                query += ` LIMIT ${total} OFFSET ${total * (page - 1)}`; 
+                query += ` LIMIT ${total} OFFSET ${total * (page - 1)}`;
             }
             [rows] = await promisePool.query(query);
 
             dataFlights = rows;
+            totalPages = setTotalPages(dataFlights, total);
         //* Если не установлены ни какие варианты фильтрации.
         } else {
             if(page === 1) {
-                [rows] = await promisePool.query(`
-                    SELECT *, 
-                    (SELECT COUNT(*) FROM flights) AS totalRows 
-                    FROM flights 
-                    LIMIT ${total}
-                `);
+                [rows] = await promisePool.query(`SELECT *, (SELECT COUNT(*) FROM flights) AS totalRows FROM flights LIMIT ${total}`);
             } else {
-                [rows] = await promisePool.query(`
-                    SELECT *,
-                    (SELECT COUNT(*) FROM flights) AS totalRows
-                    FROM flights 
-                    LIMIT ${total} 
-                    OFFSET ${total * (page - 1)} 
-                `);
+                [rows] = await promisePool.query(`SELECT *,(SELECT COUNT(*) FROM flights) AS totalRows FROM flights LIMIT ${total} OFFSET ${total * (page - 1)}`);
             }
             dataFlights = rows;
-            //* Определение количества страниц с учетом заданного количества отображаемых страниц.
-            if(Array.isArray(dataFlights) && dataFlights.length > 0) {
-                totalPagesBooking = Math.ceil( dataFlights[0].totalRows / total);
-            } else {
-                totalPagesBooking = 0;
-            }
-            
+            totalPages = setTotalPages(dataFlights, total);
         }
 
-        return res.status(200).send({dataFlights, totalPagesBooking});
+        return res.status(200).send({dataFlights, totalPages});
     } catch (error) {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});
 
