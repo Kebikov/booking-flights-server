@@ -10,7 +10,7 @@ const getFlights = require('../controllers/getFlights');
 const postCheckFormFlights = require('../controllers/postCheckFormFlights');
 const postFormFlights = require('../controllers/postFormFlights');
 const postFormBooking = require('../controllers/postFormBooking');
-const postFlightsData = require('../controllers/postFlightsData');
+const postFilterData = require('../controllers/postFilterData');
 
 const deleteFlights = require('../controllers/deleteFlights');
 const deleteBooking = require('../controllers/deleteBooking');
@@ -28,8 +28,7 @@ router.post('/check-form-flights', postCheckFormFlights); // Проверка р
 router.post('/form-flights', postFormFlights); // Добавление рейса в БД.
 router.post('/form-booking', postFormBooking); // Добавление брони в БД.
 
-router.post('/flights-data', postFlightsData); // Вернет данные с рейсами, с учетом фильтрации.
-
+router.post('/filter-data/:dataBase', postFilterData); // Вернет данные, с учетом фильтрации.
 //= DELETE 
 router.delete('/delete-flights', deleteFlights); // Удаление рейса.
 router.delete('/delete-booking', deleteBooking); // Удаление брони.

@@ -23,16 +23,30 @@
  * @property {string} note - Примечание.
  */
 
+/**
+ * @typedef {'flights' | 'booking'} Table
+ */
+
 /** 
- * @typedef {Object} FilterFlightsData
- * @property {string} moreLessId - Id столбца для сортировки больше/меньше.
- * @property {boolean} moreLessState - Значение сортировки, true - от большего к меньшему, false - наоборот.
- * @property {string} route - Данные сортировки рейса.
- * @property {string} city - Данные сортировки города назначения.
- * @property {string} date - Данные сортировки дата вылета.
- * @property {string} company - Данные сортировки комании.
- * @property {string} checkIn - Данные сортировки даты регистрации на рейс.
- * @property {number} freePlace - Данные сортировки по количества свободных мест в самолете.
+ * Обьект с данными для сортировки в таблице.
+ * @typedef {Object} FilterData
+ * - Обшие данные.
+ * @property {string} [moreLessId]? - Id столбца для сортировки больше/меньше.
+ * @property {boolean} [moreLessState]? - Значение сортировки, true - от большего к меньшему, false - наоборот.
+ * @property {Table} dataBase - Имя базы данных для поиска.
+ * - Совпадаюшее property.
+ * @property {string} [route]? - Данные сортировки рейса.
+ * @property {string} [date]? - Данные сортировки дата вылета.
+ * - Property Flight
+ * @property {string} [city]? - Данные сортировки города назначения.
+ * @property {string} [company]? - Данные сортировки комании.
+ * @property {string} [checkIn]? - Данные сортировки даты регистрации на рейс.
+ * @property {number} [freePlace]? - Данные сортировки по количества свободных мест в самолете.
+ * - Proprerty Booking
+ * @property {string} [surname]? - Фамилия пасажира.
+ * @property {string} [name]? - Имя пасажира.
+ * @property {string} [middleName]? - Отчество пасажира.
+ * @property {number} [sit]? - Номер места пасажира.
  */
 
 module.exports = {BookingData}

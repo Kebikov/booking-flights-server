@@ -1,25 +1,25 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
-const queryGenerationFlights = require('../helpers/queryGenerationFlights');
+const queryGeneration = require('../helpers/queryGeneration');
 
 
 /**
  * @typedef {Object} Req
- * @property {import('../types').FilterFlightsData} body - данные для фильтрации рейсов.
+ * @property {import('../types').FilterData} body - данные для фильтрации.
  */
 
 /**
- * @typedef {Object} GetFlightsData
- * @property {import('../types').FlightsData[]} dataFlights - Массив обьектов с данными рейсов.
+ * @typedef {Object} GetData
+ * @property {import('../types').${dataBase}Data[]} data - Массив обьектов с данными.
  * @property {number} totalPagesBooking - Число страниц для отображения.
  */
 
 /**
- * Получение всех данных рейсов.
+ * Получение всех данных с фильтром.
  * @param {Req} req
- * @returns {GetFlightsData} - Вернет обьект с : массивом обьектов рейсов, число страниц для отображения.
+ * @returns {GetData} - Вернет обьект с : массивом обьектов, число страниц для отображения.
  */
-//= postFlightsData 
-const postFlightsData = async (req, res) => {  
+//= postFilterData 
+const postFilterData = async (req, res) => {  
 
     //* Определение количества страниц с учетом заданного количества отображаемых страниц.
     const setTotalPages = (dataArray, total) => {
@@ -33,18 +33,20 @@ const postFlightsData = async (req, res) => {
     let promisePool; 
     let rows;
     /**
-     * Массив обьектов с данными рейсов.
-     * @type {import('../types').FlightsData}  
+     * Массив обьектов с данными.
+     * @type {import('../types').${dataBase}Data}   
      */
-    let dataFlights;
+    let data;
     /**
-     * Количество страниц в таблице booking, с учетом заданного количества отображаемых страниц.
+     * Количество страниц в таблице, с учетом заданного количества отображаемых страниц.
      * @type {number}
      */
     let totalPages;
 
     try {
         promisePool =  await pool();
+        const dataBase = req.params.dataBase;
+        console.log('',dataBase); 
         /**
          * Установленое количество отображаемых записей.
          * @type {number} total
@@ -55,39 +57,42 @@ const postFlightsData = async (req, res) => {
          * @type {number} page
          */
         const page = Number(req.query.page);
+
         /** 
          * Полученые данные. 
-         * @type {import('../types').FilterFlightsData} 
+         * @type {import('../types').FilterData} 
          */
-        const filterDataFlights = req.body;
-        const valueArray = Object.values(filterDataFlights);
-        const isValue = valueArray.every(item => item === '');
+        const filterData = req.body;
+        //console.log('',total, page, filterData);  
+        const valueArray = Object.values(filterData);
+        const isValue = valueArray.every(item => (item === '' || item === 'dataBase'));
+        console.log('isValue=',isValue);
         //* Если есть хоть одно значение для фильтрации, получаем новые данные с учетом фильтра.
         if(!isValue) {
             //* Если установлены варианты фильтрации.
-            let query = queryGenerationFlights(filterDataFlights, 'flights');
+            let query = queryGeneration(filterData, dataBase);
             // Добавление команд для погинации данных.
             if(page === 1) {
                 query += ` LIMIT ${total}`;
             } else {
-                query += ` LIMIT ${total} OFFSET ${total * (page - 1)}`;
+                query += ` LIMIT ${total} OFFSET ${total * (page - 1)}`; 
             }
             [rows] = await promisePool.query(query);
 
-            dataFlights = rows;
-            totalPages = setTotalPages(dataFlights, total);
+            data = rows;
+            totalPages = setTotalPages(data, total); 
         //* Если не установлены ни какие варианты фильтрации.
         } else {
             if(page === 1) {
-                [rows] = await promisePool.query(`SELECT *, (SELECT COUNT(*) FROM flights) AS totalRows FROM flights LIMIT ${total}`);
+                [rows] = await promisePool.query(`SELECT *, (SELECT COUNT(*) FROM ${dataBase}) AS totalRows FROM ${dataBase} LIMIT ${total}`);
             } else {
-                [rows] = await promisePool.query(`SELECT *,(SELECT COUNT(*) FROM flights) AS totalRows FROM flights LIMIT ${total} OFFSET ${total * (page - 1)}`);
+                [rows] = await promisePool.query(`SELECT *,(SELECT COUNT(*) FROM ${dataBase}) AS totalRows FROM ${dataBase} LIMIT ${total} OFFSET ${total * (page - 1)}`);
             }
-            dataFlights = rows;
-            totalPages = setTotalPages(dataFlights, total);
+            data = rows;
+            totalPages = setTotalPages(data, total);
         }
 
-        return res.status(200).send({dataFlights, totalPages});
+        return res.status(200).send({data, totalPages}); 
     } catch (error) {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});
 
@@ -96,4 +101,4 @@ const postFlightsData = async (req, res) => {
     }
 };
 
-module.exports = postFlightsData;
+module.exports = postFilterData;

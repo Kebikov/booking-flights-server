@@ -11,14 +11,13 @@
 
 /**
  * Генерация запроса с учетом полученого обьекта для фильтрации.
- * @param {import('../types').FilterFlightsData} filter - Обьект с данными для фильтрации.
+ * @param {import('../types').FilterData} filter - Обьект с данными для фильтрации.
  */
-const queryGenerationFlights = (filter, tableName) => {
+const queryGeneration = (filter, dataBase) => {
     let queryFilter = '';
-
-    const matchLetter = ['route', 'city', 'company']; // Ключи - поиск по первым буквам.
+    const matchLetter = ['route', 'city', 'company', 'surname', 'name', 'middleName']; // Ключи - поиск по первым буквам.
     const matchDate = ['date', 'checkIn']; // Ключи - поиск по дате.
-    const matchNumber = ['freePlace']; // Ключи - поиск числа, больше или равно.
+    const matchNumber = ['freePlace', 'sit']; // Ключи - поиск числа, больше или равно.
 
     //* Добавление условий по поиску
     for(let key in filter) {
@@ -42,7 +41,7 @@ const queryGenerationFlights = (filter, tableName) => {
     //* Замена первого AND на WHERE, в части команды для фильтрации
     queryFilter = queryFilter.replace(' AND', ' WHERE', 1);
     //* Состовление запроса с учетом фильтра
-    let query = `SELECT *, (SELECT COUNT(*) FROM ${tableName} ${queryFilter}) AS totalRows FROM ${tableName} ${queryFilter}`;
+    let query = `SELECT *, (SELECT COUNT(*) FROM ${dataBase} ${queryFilter}) AS totalRows FROM ${dataBase} ${queryFilter}`;
     //* Если есть данные для сортировки, добавляем команда для сортировки.
     if(filter?.moreLessId) {
         // Если значение true, сортировка от большего к меншему, по выбраной колонке.
@@ -53,10 +52,10 @@ const queryGenerationFlights = (filter, tableName) => {
             query += ` ORDER BY ${filter.moreLessId} ASC`;
         }
     }
-
+    console.log('',query);
     return query;
 };
 
 //queryGenerationFlights(obj, 'flights');
 
-module.exports = queryGenerationFlights;
+module.exports = queryGeneration; 
