@@ -17,8 +17,6 @@ const deleteBooking = async (req, res) => {
     let promisePool;  
     try { 
         const {id} = req.body;
-        console.log(id);
-        console.log(typeof id);
         promisePool =  await pool();
 
         // удаляем

@@ -17,7 +17,7 @@ const queryGeneration = (filter, dataBase) => {
         if(key !== 'moreLessId' && key !== 'moreLessState') {
             // Добавление условий по поиску по первой букве.
             if(matchLetter.includes(key) && filter[key] !== '') {
-                queryFilter += ` AND ${key} LIKE '${filter[key]}%'`
+                queryFilter += ` AND ${key} LIKE '${filter[key]}%'`;
             }
 
             // Добавление условий по поиску по дате.
@@ -45,10 +45,9 @@ const queryGeneration = (filter, dataBase) => {
             query += ` ORDER BY ${filter.moreLessId} ASC`;
         }
     }
-    //console.log('',query);
+
     return query;
 };
 
-//queryGenerationFlights(obj, 'flights');
 
 module.exports = queryGeneration; 

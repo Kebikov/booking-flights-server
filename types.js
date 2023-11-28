@@ -62,6 +62,6 @@ module.exports = {
     FilterData,
     FlightsOfBookingData,
     DataBase
-}
+};
 
 

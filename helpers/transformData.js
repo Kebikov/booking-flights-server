@@ -43,6 +43,6 @@ const transformData = (array) => {
     }catch (error) {
         console.error(error);
     }
-}
+};
 
 module.exports = transformData;

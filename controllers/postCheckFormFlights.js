@@ -16,7 +16,6 @@ const postCheckFormFlights = async (req, res) => {
     try {
         const {field, value} = req.body;
 
-        console.log(field, value);
         promisePool =  await pool();
 
         let rows;

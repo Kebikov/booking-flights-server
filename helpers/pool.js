@@ -45,7 +45,7 @@ async function createAndConnectToDatabase() {
         return promisePool;
         
     }catch (error) {
-        console.error( chalk.bgRed.bold('Error in Function createAndConnectToDatabase >>> '), error );
+        console.error( 'Error in Function createAndConnectToDatabase >>> ', error );
     }
 }
 

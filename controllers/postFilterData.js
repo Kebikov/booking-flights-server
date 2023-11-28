@@ -21,7 +21,6 @@ const { FlightsOfBookingData, FilterData } = require('../types.js');
  */
 //= postFilterData 
 const postFilterData = async (req, res) => {  
-    console.log('/filter-data/:dataBase');
     //* Определение количества страниц с учетом заданного количества отображаемых страниц.
     const setTotalPages = (dataArray, total) => {
         if(Array.isArray(dataArray) && dataArray.length > 0) {
@@ -47,7 +46,6 @@ const postFilterData = async (req, res) => {
     try {
         promisePool =  await pool();
         const dataBase = req.params.dataBase;
-        //console.log('',dataBase); 
         /**
          * Установленое количество отображаемых записей.
          * @type {number} total
@@ -63,15 +61,9 @@ const postFilterData = async (req, res) => {
          * Полученые данные. 
          * @type {FilterData} 
          */
-        const filterData = req.body;
-        console.log('',total, page, filterData);  
+        const filterData = req.body; 
         const valueArray = Object.values(filterData);
         const isValue = valueArray.every(item => item === '');
-        console.group('REQ');
-        console.log('Пказывать по >>> ', total);
-        console.log('Номер страницы >>> ', page);
-        console.log('Есть ли фильтр >>> ', !isValue);
-        console.log('Фильтр >>> ', isValue ? 'нет' : filterData);
         //* Если есть хоть одно значение для фильтрации, получаем новые данные с учетом фильтра.
         if(!isValue) {
             //* Если установлены варианты фильтрации.
@@ -82,10 +74,8 @@ const postFilterData = async (req, res) => {
             } else {
                 query += ` LIMIT ${total} OFFSET ${total * (page - 1)}`;  
             }
-            console.log(query);
             [rows] = await promisePool.query(query);
             data = rows;
-            console.log(data);
             totalPages = setTotalPages(data, total); 
         //* Если не установлены ни какие варианты фильтрации.  
         } else {
@@ -97,7 +87,7 @@ const postFilterData = async (req, res) => {
             data = rows;
             totalPages = setTotalPages(data, total);
         }
-        console.log(data, totalPages);
+
         return res.status(200).send({data, totalPages}); 
     } catch (error) {
         res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`}); 

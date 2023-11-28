@@ -19,7 +19,6 @@ const patchBooking = async (req, res) => {
     let promisePool;
     try { 
         const {id, surname, name, middleName} = req.body;
-        console.log(id, surname, name, middleName); 
         promisePool =  await pool(); 
 
         await promisePool.query(`

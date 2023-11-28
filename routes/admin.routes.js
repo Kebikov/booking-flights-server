@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
-const chalk = require('chalk');
-const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 
 //= router.get('/curent-time')
