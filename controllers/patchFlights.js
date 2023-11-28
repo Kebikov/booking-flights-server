@@ -12,7 +12,7 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
  * @param {FormFlights} req.boby - обьект с данными
  * @param {Object} req - обьект запроса Express
  * @return {Object} - вернет обьект с результатом {msg: 'someResalt'}
-*/
+ */
 //= patchFlights 
 const patchFlights = async (req, res) => {
     let promisePool;

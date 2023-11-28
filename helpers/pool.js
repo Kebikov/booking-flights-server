@@ -34,8 +34,8 @@ async function createAndConnectToDatabase() {
                 if (field.type === 'DATETIME') {
                     return field.string();
                 }
-                    return next();
-                }
+                return next();
+            }
         });
 
         const promisePool = pool.promise(); 

@@ -1,6 +1,16 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
-const {BookingData} = require('../types.js');
 
+/**
+ * @typedef {Object} BookingData
+ * @property {number} id - Id записи в BD.
+ * @property {string} route - Уникальное имя рейса.
+ * @property {string} surname - Фамилия пасажира.
+ * @property {string} name - Имя пасажира.
+ * @property {string} middleName - Отчество пасажира.
+ * @property {string} date - Время регистрации.
+ * @property {number} sit - Номер места пасажира.
+ * @property {string} note - Примечание.
+ */
 
 /**
  * Функция для получения обьекта брони по id.

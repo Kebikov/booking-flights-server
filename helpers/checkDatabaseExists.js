@@ -19,6 +19,6 @@ const checkDatabaseExists = async () => {
     } catch (error) {
         console.error( chalk.bgRed.bold('Error in Function checkDatabaseExists >>> '), error );
     }
-}
+};
 
 module.exports = checkDatabaseExists; 

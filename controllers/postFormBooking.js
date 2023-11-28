@@ -59,7 +59,7 @@ const postFormBooking = async (req, res) => {
         const nowTime = objDate.toLocaleTimeString('ru-RU');
         /** Время бронирования в формате(2023-12-12 09:00:00). @type {string} */
         const date = `${nowDate} ${nowTime}`;
-        console.log(date);
+
         /** Место пасажира. @type {number} */
         let sit = 0;
 

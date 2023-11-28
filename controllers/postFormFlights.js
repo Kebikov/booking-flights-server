@@ -1,20 +1,19 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 /**
-* Функция добавления новых рейсов
-* @typedef {Object} FormFlights
-* @property {string} route - уникальный номер рейса
-* @property {string} city - город назначения
-* @property {string} date - дата вылета
-* @property {string} company - перевозчик
-* @property {string} checkIn - дата регистрации
-* @property {number} freePlace - количество свободных мест
-* @property {string} note - примечание
-*
-* @param {FormFlights} req.boby - обьект с данными
-* @param {Object} req - обьект запроса Express
-* @return {FormFlights[]} - вернет обновленный массив с данными
-*/
+ * Функция добавления новых рейсов
+ * @typedef {Object} FormFlights
+ * @property {string} route - уникальный номер рейса
+ * @property {string} city - город назначения
+ * @property {string} date - дата вылета
+ * @property {string} company - перевозчик
+ * @property {string} checkIn - дата регистрации
+ * @property {number} freePlace - количество свободных мест
+ * @property {string} note - примечание
+ * @param {FormFlights} req.boby - обьект с данными
+ * @param {Object} req - обьект запроса Express
+ * @return {FormFlights[]} - вернет обновленный массив с данными
+ */
 //= postFormFlights 
 const postFormFlights = async (req, res) => {
     let promisePool;

@@ -1,6 +1,5 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
-
 /**
  * @typedef {Object} RecBody
  * @property {number} id - id записи брони
@@ -19,19 +18,29 @@ const deleteBooking = async (req, res) => {
         const {id} = req.body;
         promisePool =  await pool();
 
-        // удаляем
+        // запрос на получение рейса
         let [rows] = await promisePool.query(`
-            DELETE FROM booking 
-            WHERE id = ${id}
-        `);
+            SELECT route 
+            FROM booking 
+            WHERE id = ?
+        `, [id]);
 
-        // добавляем +1 место в самолете
+        // получаем рейс с местом и сплитим его для получения только рейса.
+        let route = rows[0].route.split('/№')[0];
+        
+        // удаляем
         [rows] = await promisePool.query(`
+            DELETE FROM booking 
+            WHERE id = ?
+        `, [id]);
+        
+        // добавляем +1 место в самолете
+        await promisePool.query(`
             UPDATE flights 
             SET 
             freePlace = freePlace + 1 
-            WHERE id = ${id}
-        `);
+            WHERE route = ?
+        `, [route]);
 
         return res.status(200).send({msg: 'ENTRY_DELETED'});
     } catch (error) {

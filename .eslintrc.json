@@ -12,11 +12,13 @@
     },
     "plugins": ["jsdoc"],
     "rules": {
-        "no-console": ["warn", { "allow": ["error"] }],
+        "no-console": ["warn", { "allow": ["error","info"] }],
         "quotes": ["error", "single"], 
         "indent": ["warn", 4, { "SwitchCase": 1 }], 
         "max-len": ["warn", {"code": 200}], 
         "comma-dangle": ["error", "never"], 
-        "semi": ["warn", "always"]
+        "semi": ["warn", "always"],
+
+        "jsdoc/check-alignment": 1
     }
 }

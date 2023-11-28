@@ -1,15 +1,20 @@
+/** 
+ * @typedef {Object} FlightsData
+ * @property {number} id - Id записи.
+ * @property {string} route - Уникальное имя рейса.
+ * @property {string} city - Город назначения.
+ * @property {string} date - Дата и время вылета.
+ * @property {string} company - Комания перевозчик.
+ * @property {string} checkIn - Крайний срок регистрации на рейс.
+ * @property {number} freePlace - Количество свободных мест в самолете.
+ * @property {string} note - Примечание.
+ */
+
 /**
  * Массив обьектов для создания рейсов
- * @type {{
-*       route: string,
-*       city: string,
-*       date: string,
-*       company: string,
-*       checkIn: string,
-*       freePlace: number,
-*       note: string
-* }[]}
-*/
+ * @type {FlightsData[]} 
+ */
+
 const fakeDataFlights = [
     {
         route: 'DF-345',
@@ -73,7 +78,7 @@ const fakeDataFlights = [
         checkIn: '2023-12-30T09:30:00',
         freePlace: 29,
         note: 'some note'
-    },
-]
+    }
+];
 
 module.exports = fakeDataFlights;

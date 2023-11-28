@@ -31,7 +31,7 @@ const ifDatabaseNotExists = async () => {
         // создание: две таблицы(booking и flights)
         await promisePool.query(createTableBooking);
         await promisePool.query(createTableFlights);
-        console.log(transformData(fakeDataFlights));
+
         // наполняем данными таблицу booking, преобразуя обьект в строку с помошью transformData
         await promisePool.query(`
             INSERT INTO booking 
@@ -49,10 +49,10 @@ const ifDatabaseNotExists = async () => {
         // закрываем  созданный promisePool
         await promisePool.end();
 
-        console.log(`Database ${process.env.MYSQL_DB} created.`);
+        console.info(`Database ${process.env.MYSQL_DB} created.`);
     }catch (error) {
         console.error( chalk.bgRed.bold('Error in Function ifDatabaseNotExists >>> '), error );
     }
-}
+};
 
 module.exports = ifDatabaseNotExists;

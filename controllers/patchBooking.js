@@ -13,7 +13,7 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
  * @param {BookingUpdateData} req.boby - обьект с данными
  * @param {Object} req - обьект запроса Express
  * @return {Object} - вернет обьект с результатом {msg: 'someResalt'}
-*/
+ */
 //= patchBooking 
 const patchBooking = async (req, res) => {
     let promisePool;

@@ -2,14 +2,14 @@ const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 
 
 /**
-* Функция удаления рейса по переданному id(удаляем в случае отсутствия брони на рейс)
-* @typedef {Object} RecBody
-* @property {number} id - id записи рейса
-*
-* @param {RecBody} req.body - обьект c данными
-* @param {Object} req - обьект запроса Express
-* @return {number} 
-*/
+ * Функция удаления рейса по переданному id(удаляем в случае отсутствия брони на рейс)
+ * @typedef {Object} RecBody
+ * @property {number} id - id записи рейса
+ *
+ * @param {RecBody} req.body - обьект c данными
+ * @param {Object} req - обьект запроса Express
+ * @return {number} 
+ */
 //= deleteFlights 
 const deleteFlights = async (req, res) => {
     let promisePool;  

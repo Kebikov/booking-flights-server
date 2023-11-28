@@ -1,7 +1,35 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 const queryGeneration = require('../helpers/queryGeneration');
-const { FlightsOfBookingData, FilterData } = require('../types.js');
 
+/** 
+ * Обьект с данными для сортировки в Flight.
+ * @typedef {Object} FilterFlights
+ * @property {string} [moreLessId]? - Id столбца для сортировки больше/меньше.
+ * @property {boolean} [moreLessState]? - Значение сортировки, true - от большего к меньшему, false - наоборот.
+ * @property {string} [route]? - Данные сортировки рейса.
+ * @property {string} [city]? - Данные сортировки города назначения.
+ * @property {string} [date]? - Данные сортировки дата вылета.
+ * @property {string} [company]? - Данные сортировки комании.
+ * @property {string} [checkIn]? - Данные сортировки даты регистрации на рейс.
+ * @property {number} [freePlace]? - Данные сортировки по количества свободных мест в самолете.
+ */
+
+/** 
+ * Обьект с данными для сортировки в Booking.
+ * @typedef {Object} FilterBooking
+ * @property {string} [moreLessId]? - Id столбца для сортировки больше/меньше.
+ * @property {boolean} [moreLessState]? - Значение сортировки, true - от большего к меньшему, false - наоборот.
+ * @property {string} [route]? - Данные сортировки рейса.
+ * @property {string} [surname]? - Фамилия пасажира.
+ * @property {string} [name]? - Имя пасажира.
+ * @property {string} [middleName]? - Отчество пасажира.
+ * @property {string} [date]? - Данные сортировки дата вылета.
+ * @property {number} [sit]? - Номер места пасажира.
+ */
+
+/**
+ * @typedef {FilterFlights | FilterBooking} FilterData
+ */
 
 /**
  * @typedef {Object} Req
@@ -28,7 +56,7 @@ const postFilterData = async (req, res) => {
         } else {
             return 0;
         }
-    }
+    };
     
     let promisePool; 
     let rows;

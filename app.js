@@ -2,10 +2,9 @@ const express = require('express');
 const { createAndConnectToDatabase } = require('./helpers/pool');
 const chalk = require('chalk');
 const cors = require('cors'); 
-const routes = require('./routes'); 
+const routes = require('./routes');
 require('dotenv').config();
 
-console.log(chalk.bgBlue.bold(' START '));
 
 const app = express();
 
@@ -18,11 +17,11 @@ async function start() {
     try{
 
         app.listen(process.env.PORT, (err) => { 
-            err ? console.log(chalk.bgRed('Error listen port >>> ', err)) : console.log(chalk.bgGreen.bold(`Server started on port ${process.env.PORT}...`));
+            err ? console.info(chalk.bgRed('Error listen port >>> ', err)) : console.info(chalk.bgGreen.bold(`Server started on port ${process.env.PORT}...`));
         });
 
     }catch(err) {
-        console.log('Error >>> ', err);
+        console.error('Error >>> ', err);
         process.exit(1);  
     }
 }
@@ -35,12 +34,12 @@ async function checkСonnectionSQL() {
 
         const nameDB = connection.connection.config.database;
         if(nameDB) {
-            console.log( chalk.bgGreen.bold(`Connection SQL: ${nameDB}...`) )
+            console.info( chalk.bgGreen.bold(`Connection SQL: ${nameDB}...`) );
         } else {
-            console.log( chalk.bgRed.bold('Error: Connection SQL') )
+            console.info( chalk.bgRed.bold('Error: Connection SQL') );
         }
     }catch (error) {
-        console.log( chalk.bgRed.bold('Error in Function checkSQL >>> '), error);
+        console.error( chalk.bgRed.bold('Error in Function checkSQL >>> '), error);
     }
 
 } 

@@ -36,4 +36,4 @@ const createTableFlights = `
 module.exports = {
     createTableBooking,
     createTableFlights
-}
+};
