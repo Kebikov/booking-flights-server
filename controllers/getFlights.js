@@ -1,9 +1,9 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
-
+const {FlightsData} = require('../types.js');
 
 /**
  * Функция для получения обьекта рейса по id.
- * @returns {import('../types.js').FlightsData} - Вернет обьект рейса.
+ * @returns {FlightsData} - Вернет обьект рейса.
  */
 
 const getFlights = async (req, res) => {

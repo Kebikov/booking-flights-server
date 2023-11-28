@@ -1,10 +1,10 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
-
+const {BookingData} = require('../types.js');
 
 
 /**
  * Функция для получения обьекта брони по id.
- * @returns {import('../types.js').BookingData} - Вернет обьект брони.
+ * @returns {BookingData} - Вернет обьект Booking.
  */
 
 const getBooking = async (req, res) => {

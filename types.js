@@ -1,4 +1,3 @@
-
 /**
  * @typedef {Object} BookingData
  * @property {number} id - Id записи в BD.
@@ -21,6 +20,10 @@
  * @property {string} checkIn - Крайний срок регистрации на рейс.
  * @property {number} freePlace - Количество свободных мест в самолете.
  * @property {string} note - Примечание.
+ */
+
+/**
+ * @typedef {FlightsData | BookingData} FlightsOfBookingData
  */
 
 /**
@@ -49,6 +52,16 @@
  * @property {number} [sit]? - Номер места пасажира.
  */
 
-module.exports = {BookingData}
+/**
+ * @typedef {'booking' | 'flights'} DataBase
+ */
+
+module.exports = {
+    BookingData, 
+    FlightsData, 
+    FilterData,
+    FlightsOfBookingData,
+    DataBase
+}
 
 

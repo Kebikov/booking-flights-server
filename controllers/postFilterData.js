@@ -1,15 +1,16 @@
 const { createAndConnectToDatabase: pool } = require('../helpers/pool');
 const queryGeneration = require('../helpers/queryGeneration');
+const { FlightsOfBookingData, FilterData } = require('../types.js');
 
 
 /**
  * @typedef {Object} Req
- * @property {import('../types').FilterData} body - данные для фильтрации.
+ * @property {FilterData} body - данные для фильтрации.
  */
 
 /**
  * @typedef {Object} GetData
- * @property {import('../types').${dataBase}Data[]} data - Массив обьектов с данными.
+ * @property {FlightsOfBookingData[]} data - Массив обьектов с данными.
  * @property {number} totalPagesBooking - Число страниц для отображения.
  */
 
@@ -20,7 +21,7 @@ const queryGeneration = require('../helpers/queryGeneration');
  */
 //= postFilterData 
 const postFilterData = async (req, res) => {  
-
+    console.log('/filter-data/:dataBase');
     //* Определение количества страниц с учетом заданного количества отображаемых страниц.
     const setTotalPages = (dataArray, total) => {
         if(Array.isArray(dataArray) && dataArray.length > 0) {
@@ -34,7 +35,7 @@ const postFilterData = async (req, res) => {
     let rows;
     /**
      * Массив обьектов с данными.
-     * @type {import('../types').${dataBase}Data}   
+     * @type {FlightsOfBookingData}
      */
     let data;
     /**
@@ -46,7 +47,7 @@ const postFilterData = async (req, res) => {
     try {
         promisePool =  await pool();
         const dataBase = req.params.dataBase;
-        console.log('',dataBase); 
+        //console.log('',dataBase); 
         /**
          * Установленое количество отображаемых записей.
          * @type {number} total
@@ -60,13 +61,17 @@ const postFilterData = async (req, res) => {
 
         /** 
          * Полученые данные. 
-         * @type {import('../types').FilterData} 
+         * @type {FilterData} 
          */
         const filterData = req.body;
-        //console.log('',total, page, filterData);  
+        console.log('',total, page, filterData);  
         const valueArray = Object.values(filterData);
-        const isValue = valueArray.every(item => (item === '' || item === 'dataBase'));
-        console.log('isValue=',isValue);
+        const isValue = valueArray.every(item => item === '');
+        console.group('REQ');
+        console.log('Пказывать по >>> ', total);
+        console.log('Номер страницы >>> ', page);
+        console.log('Есть ли фильтр >>> ', !isValue);
+        console.log('Фильтр >>> ', isValue ? 'нет' : filterData);
         //* Если есть хоть одно значение для фильтрации, получаем новые данные с учетом фильтра.
         if(!isValue) {
             //* Если установлены варианты фильтрации.
@@ -75,13 +80,14 @@ const postFilterData = async (req, res) => {
             if(page === 1) {
                 query += ` LIMIT ${total}`;
             } else {
-                query += ` LIMIT ${total} OFFSET ${total * (page - 1)}`; 
+                query += ` LIMIT ${total} OFFSET ${total * (page - 1)}`;  
             }
+            console.log(query);
             [rows] = await promisePool.query(query);
-
             data = rows;
+            console.log(data);
             totalPages = setTotalPages(data, total); 
-        //* Если не установлены ни какие варианты фильтрации.
+        //* Если не установлены ни какие варианты фильтрации.  
         } else {
             if(page === 1) {
                 [rows] = await promisePool.query(`SELECT *, (SELECT COUNT(*) FROM ${dataBase}) AS totalRows FROM ${dataBase} LIMIT ${total}`);
@@ -91,10 +97,10 @@ const postFilterData = async (req, res) => {
             data = rows;
             totalPages = setTotalPages(data, total);
         }
-
+        console.log(data, totalPages);
         return res.status(200).send({data, totalPages}); 
     } catch (error) {
-        res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`});
+        res.status(500).json({message: `Ошибка сервера, попробуйте позже...${error}`}); 
 
     } finally {
         if(promisePool) await promisePool.end();

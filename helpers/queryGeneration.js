@@ -1,17 +1,10 @@
-// const obj = {
-//     moreLessId: 'route', 
-//     moreLessState: true, 
-//     route: '', 
-//     city: 'м', 
-//     date: '2023-12-12', 
-//     company: '', 
-//     checkIn: '', 
-//     freePlace: '12'
-// };
+const {FilterData, DataBase} = require('../types.js');
+
 
 /**
  * Генерация запроса с учетом полученого обьекта для фильтрации.
- * @param {import('../types').FilterData} filter - Обьект с данными для фильтрации.
+ * @param {FilterData} filter - Обьект с данными для фильтрации.
+ * @param {DataBase} dataBase - Имя базы данных.
  */
 const queryGeneration = (filter, dataBase) => {
     let queryFilter = '';
@@ -52,7 +45,7 @@ const queryGeneration = (filter, dataBase) => {
             query += ` ORDER BY ${filter.moreLessId} ASC`;
         }
     }
-    console.log('',query);
+    //console.log('',query);
     return query;
 };
 

@@ -3,7 +3,6 @@ const router = express.Router({mergeParams: true});
 
 
 //* controllers 
-const getBookingData = require('../controllers/getBookingData');
 const getBooking = require('../controllers/getBooking');
 const getFlights = require('../controllers/getFlights');
 
@@ -20,21 +19,20 @@ const patchBooking = require('../controllers/patchBooking');
 
 
 //= GET 
-router.get('/booking-data', getBookingData); // Вернет данные с бронированием.
-router.get('/get-booking/:id', getBooking); // Вернет обьект брони по id.
-router.get('/get-flights/:id', getFlights); // Вернет обьект рейса по id. 
+router.get('/get-booking/:id', getBooking); // Вернет обьект Booking по id.
+router.get('/get-flights/:id', getFlights); // Вернет обьект Flights по id. 
 //= POST 
-router.post('/check-form-flights', postCheckFormFlights); // Проверка рейса
-router.post('/form-flights', postFormFlights); // Добавление рейса в БД.
-router.post('/form-booking', postFormBooking); // Добавление брони в БД.
+router.post('/check-form-flights', postCheckFormFlights); // Проверка Flights.
+router.post('/form-flights', postFormFlights); // Добавление Flights в БД.
+router.post('/form-booking', postFormBooking); // Добавление Booking в БД.
 
 router.post('/filter-data/:dataBase', postFilterData); // Вернет данные, с учетом фильтрации.
 //= DELETE 
-router.delete('/delete-flights', deleteFlights); // Удаление рейса.
-router.delete('/delete-booking', deleteBooking); // Удаление брони.
+router.delete('/delete-flights', deleteFlights); // Удаление Flights.
+router.delete('/delete-booking', deleteBooking); // Удаление Booking.
 //= PATCH 
-router.patch('/patch-flights', patchFlights); // Редактирование рейса.
-router.patch('/patch-booking', patchBooking); // Редактирование брони.
+router.patch('/patch-flights', patchFlights); // Редактирование Flights.
+router.patch('/patch-booking', patchBooking); // Редактирование Booking.
 
 
 module.exports = router;
