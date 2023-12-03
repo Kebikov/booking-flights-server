@@ -40,8 +40,6 @@ async function createAndConnectToDatabase() {
 
         const promisePool = pool.promise(); 
 
-        
-
         return promisePool;
         
     }catch (error) {

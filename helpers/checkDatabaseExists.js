@@ -21,4 +21,4 @@ const checkDatabaseExists = async () => {
     }
 };
 
-module.exports = checkDatabaseExists; 
+module.exports = checkDatabaseExists;  
