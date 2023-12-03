@@ -52,7 +52,7 @@ const postFilterData = async (req, res) => {
     //* Определение количества страниц с учетом заданного количества отображаемых страниц.
     const setTotalPages = (dataArray, total) => {
         if(Array.isArray(dataArray) && dataArray.length > 0) {
-            return Math.ceil( dataArray[0].totalRows / total);
+            return Math.ceil( dataArray[0].totalRows / total); 
         } else {
             return 0;
         }

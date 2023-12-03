@@ -44,7 +44,7 @@ async function createAndConnectToDatabase() {
         
     }catch (error) {
         console.error( 'Error in Function createAndConnectToDatabase >>> ', error );
-    }
+    } 
 }
 
 
